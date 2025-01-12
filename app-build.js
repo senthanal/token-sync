@@ -1,7 +1,8 @@
 import { cpSync } from "fs";
 import { join, resolve } from "path";
 const appPath = resolve("./app");
-const distPath = resolve("./dist/css");
-const cssPath = join(appPath, "css");
+const distAppPath = resolve("./dist/app");
+const cssPath = resolve("./dist/css");
 
-cpSync(distPath, cssPath, { recursive: true });
+cpSync(appPath, distAppPath, { recursive: true });
+cpSync(cssPath, join(distAppPath, 'css'), { recursive: true });

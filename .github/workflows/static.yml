@@ -60,12 +60,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app_artifact
+          path: build
+      - run: zip -r build.zip app/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist/app'
+          path: './app'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

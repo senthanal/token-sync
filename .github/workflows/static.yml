@@ -61,7 +61,7 @@ jobs:
         with:
           name: app_artifact
           path: build
-      - run:  tar -xvf build app
+      - run:  zip -r build.zip app
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

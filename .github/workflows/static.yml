@@ -61,7 +61,8 @@ jobs:
         with:
           name: app_artifact
           path: build
-      - run:  zip -r build.zip ./app
+      - run: mv build.zip app/
+      - run:  zip -FSr app/build.zip app/*
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

@@ -38,13 +38,6 @@ jobs:
         with:
           name: lib_artifact
           path: './dist'
-      - name: build app
-        run: npm run build:app
-      - name: Upload app artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          name: app_artifact
-          path: './app'
 
   deploy:
     needs: build
@@ -58,7 +51,12 @@ jobs:
       - name: Download app artifact
         uses: actions/download-artifact@v4
         with:
-          name: app_artifact
+          name: lib_artifact
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

@@ -78,7 +78,8 @@ async function commitChanges(){
   // git add
   await execa`git add .`;
   // git commit
-  await execa`git commit -m 'build: generate styles from token modifications'`;
+  const commitMessage = 'build: generate styles from token modifications';
+  await execa`git commit -m ${commitMessage}`;
   // git push
   await execa`git push`;
 }

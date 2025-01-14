@@ -39,6 +39,7 @@ main{
   display: inline-block;
   margin: 0;
   padding: 0;
+  border-color: 1px solid var(--global-primary-900);
 }
 
 .primary-900 {
@@ -46,4 +47,25 @@ main{
 }
 .primary-800 {
   background-color: var(--global-primary-800);
+}
+.primary-700 {
+  background-color: var(--global-primary-700);
+}
+.primary-600 {
+  background-color: var(--global-primary-600);
+}
+.primary-500 {
+  background-color: var(--global-primary-500);
+}
+.primary-400 {
+  background-color: var(--global-primary-400);
+}
+.primary-300 {
+  background-color: var(--global-primary-300);
+}
+.primary-200 {
+  background-color: var(--global-primary-200);
+}
+.primary-100 {
+  background-color: var(--global-primary-100);
 }

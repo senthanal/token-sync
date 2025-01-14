@@ -2,6 +2,8 @@ import StyleDictionary from 'style-dictionary';
 import { join, resolve } from 'node:path';
 import process from 'node:process';
 import { cpSync } from 'node:fs';
+import {execa} from "execa";
+import * as core from "@actions/core";
 
 const distTokenLibPath = resolve(process.cwd(), 'dist/token-lib');
 const tokenLibPath = resolve(process.cwd(), 'token-lib');
@@ -15,6 +17,7 @@ async function build() {
   await buildTokens();
   await buildTokenLib();
   await buildApp();
+  await commitChanges();
 }
 
 async function buildTokens() {
@@ -67,3 +70,16 @@ async function buildTokenLib(){
 async function buildApp(){
   cpSync(tokenLibCssPath, tokenAppPath, { recursive: true });
 }
+
+async function commitChanges(){
+  // git status
+  const { stdout } = await execa`git status --short`;
+  core.info(stdout);
+  // git add
+  await execa`git add .`;
+  // git commit
+  await execa`git commit -m "build: generate styles from token modifications"`;
+  // git push
+  await execa`git push`;
+}
+

@@ -72,6 +72,9 @@ async function buildApp(){
 }
 
 async function commitChanges(){
+  // git config
+  await execa`git config --global user.email ${'github-actions[bot]@users.noreply.github.com'}`;
+  await execa`git config --global user.name ${'github-actions[bot]'}`;
   // git status
   const { stdout } = await execa`git status --short`;
   core.info(stdout);

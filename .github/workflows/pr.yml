@@ -4,6 +4,12 @@ on:
     branches:
       - '**'
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   # Build job
   build:
@@ -11,11 +17,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: npm ci
       - run: npm run build
+      - name: Commit token generated styles
+        uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
+        with:
+            message: 'chore: build token lib'
       - name: Upload lib artifact
         uses: actions/upload-pages-artifact@v3
         with:

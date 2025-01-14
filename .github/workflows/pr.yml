@@ -30,7 +30,8 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      - name: Build tokens
+        run: npm run build
 
       - name: Check for changes
         id: git-check
@@ -39,28 +40,11 @@ jobs:
           echo "Branch=$(git branch --show-current)"
           git add .
           git status --porcelain
-          echo "changes=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
 
-
-      - name: Commit and push if changes exist
-        if: steps.git-check.outputs.changes > 0
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git commit -m "chore: update build artifacts [skip ci]"
-          git push
-
-      - name: Add PR comment
-        if: steps.git-check.outputs.changes > 0
-        uses: actions/github-script@v7
+      - name: Commit changes if any
+        uses: EndBug/add-and-commit@v9
         with:
-          script: |
-            github.action.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: '🤖 Build artifacts have been automatically updated and committed to this PR.'
-            })
+          message: 'Chore: Update CSS variables'
 
       - name: Upload lib artifact
         uses: actions/upload-pages-artifact@v3

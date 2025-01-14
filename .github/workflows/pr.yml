@@ -4,11 +4,9 @@ on:
     branches:
       - '**'
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: write
-  pages: write
-  id-token: write
+  pull-requests: write
 
 jobs:
   # Build job
@@ -18,18 +16,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.head_ref }}  # Checkout the PR branch
+          fetch-depth: 0  # Fetch all history
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+
       - run: npm ci
-      - run: npm run build
-      - name: Commit token generated styles
-        uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
+
+      - name: Build tokens
+        run: npm run build
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          echo ".github{}" >> token-lib/css/variables.css
+          echo "Branch=$(git branch --show-current)"
+          git add .
+          git status --porcelain
+
+      - name: Commit changes if any
+        uses: EndBug/add-and-commit@v9
         with:
-            message: 'chore: build token lib'
+          message: 'Chore: Update CSS variables'
+
       - name: Upload lib artifact
         uses: actions/upload-pages-artifact@v3
         with:

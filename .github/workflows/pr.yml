@@ -18,14 +18,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
+          ref: ${{ github.head_ref }}  # Checkout the PR branch
+          fetch-depth: 0  # Fetch all history
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+
       - run: npm ci
+
       - run: npm run build
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git add .
+          git status --porcelain
+          echo "changes=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
+
       - name: Upload lib artifact
         uses: actions/upload-pages-artifact@v3
         with:

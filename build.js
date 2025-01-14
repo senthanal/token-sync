@@ -17,7 +17,7 @@ async function build() {
   await buildTokens();
   await buildTokenLib();
   await buildApp();
-  await commitChanges();
+  // await commitChanges();
 }
 
 async function buildTokens() {

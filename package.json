@@ -13,7 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "@actions/core": "^1.11.1",
-    "execa": "^9.5.2",
     "style-dictionary": "^4.3.0"
   }
 }

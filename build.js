@@ -5,18 +5,11 @@ import { cpSync } from 'node:fs';
 import {execa} from "execa";
 import * as core from "@actions/core";
 
-core.info('Building tokens...');
-core.info(`process.cwd(): ${process.cwd()}`);
 const distTokenLibPath = resolve(process.cwd(), 'dist/token-lib');
-core.info(`distTokenLibPath: ${distTokenLibPath}`);
 const tokenLibPath = resolve(process.cwd(), 'token-lib');
-core.info(`tokenLibPath: ${tokenLibPath}`);
 const tokenLibCssPath = join(process.cwd(), 'token-lib', 'css');
-core.info(`tokenLibCssPath: ${tokenLibCssPath}`);
 const tokenAppPath = resolve(process.cwd(), 'token-app');
-core.info(`tokenAppPath: ${tokenAppPath}`);
 const tokensPath = resolve(tokenLibPath, 'tokens');
-core.info(`tokensPath: ${tokensPath}`);
 
 await build();
 

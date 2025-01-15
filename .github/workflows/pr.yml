@@ -30,14 +30,6 @@ jobs:
       - name: Build tokens
         run: npm run build
 
-      - name: Check for changes
-        id: git-check
-        run: |
-          echo ".github{}" >> token-lib/css/variables.css
-          echo "Branch=$(git branch --show-current)"
-          git add .
-          git status --porcelain
-
       - name: Commit changes if any
         uses: EndBug/add-and-commit@v9
         with:

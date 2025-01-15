@@ -2,14 +2,13 @@ import StyleDictionary from 'style-dictionary';
 import { join, resolve } from 'node:path';
 import process from 'node:process';
 import { cpSync } from 'node:fs';
-import {execa} from "execa";
-import * as core from "@actions/core";
 
 const distTokenLibPath = resolve(process.cwd(), 'dist/token-lib');
 const tokenLibPath = resolve(process.cwd(), 'token-lib');
 const tokenLibCssPath = join(process.cwd(), 'token-lib', 'css');
 const tokenAppPath = resolve(process.cwd(), 'token-app');
 const tokensPath = resolve(tokenLibPath, 'tokens');
+import core from '@actions/core';
 
 await build();
 
@@ -17,10 +16,10 @@ async function build() {
   await buildTokens();
   await buildTokenLib();
   await buildApp();
-  // await commitChanges();
 }
 
 async function buildTokens() {
+  core.info('Building tokens');
   const sd = new StyleDictionary({
     source: [`${tokensPath}/**/*.json`],
     platforms: {
@@ -61,29 +60,18 @@ async function buildTokens() {
     },
   });
   await sd.buildAllPlatforms();
+  core.info('Tokens built');
 }
 
 async function buildTokenLib(){
+  core.info('Building token lib');
   cpSync(tokenLibPath, distTokenLibPath, { recursive: true });
+  core.info('Token lib built');
 }
 
 async function buildApp(){
+  core.info('Building token app');
   cpSync(tokenLibCssPath, tokenAppPath, { recursive: true });
-}
-
-async function commitChanges(){
-  // git config
-  await execa`git config --global user.email ${'github-actions[bot]@users.noreply.github.com'}`;
-  await execa`git config --global user.name ${'github-actions[bot]'}`;
-  // git status
-  const { stdout } = await execa`git status --short`;
-  core.info(stdout);
-  // git add
-  await execa`git add .`;
-  // git commit
-  const commitMessage = 'build: generate styles from token modifications';
-  await execa`git commit -m ${commitMessage}`;
-  // git push
-  await execa`git push`;
+  core.info('Token app built');
 }
 

@@ -4,18 +4,18 @@
 
 :root {
   --global-primary-900: #eb3844;
-  --global-primary-800: #d4323d;
-  --global-primary-700: #bc2d36;
-  --global-primary-600: #8d2229;
-  --global-primary-500: #761c22;
-  --global-primary-400: #5e161b;
-  --global-primary-300: #461114;
-  --global-primary-200: #2f0b0e;
-  --global-primary-100: #170607;
-  --global-base-font-family: Roboto, Arial, sans-serif;
-  --global-heading-font-family: Montserrat, Arial, sans-serif;
-  --global-monospace-font-family: 'Courier New', Courier, monospace;
-  --global-heading-h1-font-size: 32px;
-  --global-heading-h2-font-size: 28px;
-  --global-heading-h3-font-size: 24px;
+  --global-primary-800: #d4323d; /* primary color 800 */
+  --global-primary-700: #bc2d36; /* primary color 700 */
+  --global-primary-600: #8d2229; /* primary 600 color code */
+  --global-primary-500: #761c22; /* primary 500 */
+  --global-primary-400: #5e161b; /* primary 400 */
+  --global-primary-300: #461114; /* primary 300 */
+  --global-primary-200: #2f0b0e; /* primary 200 */
+  --global-primary-100: #170607; /* primary 100 */
+  --global-base-font-family: Roboto, Arial, sans-serif; /* base font family */
+  --global-heading-font-family: Montserrat, Arial, sans-serif; /* for header elements */
+  --global-monospace-font-family: 'Courier New', Courier, monospace; /* for editors */
+  --global-heading-h1-font-size: 32px; /* heading h1 element font size */
+  --global-heading-h2-font-size: 28px; /* heading h2 element font size */
+  --global-heading-h3-font-size: 24px; /* heading h3 element font size */
 }

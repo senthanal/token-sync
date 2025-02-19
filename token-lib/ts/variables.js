@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-export const GlobalPrimary900 = "#eb3844";
+export const GlobalPrimary900 = "#f3888f";
 export const GlobalPrimary800 = "#d4323d"; // primary color 800
 export const GlobalPrimary700 = "#bc2d36"; // primary color 700
 export const GlobalPrimary600 = "#8d2229"; // primary 600 color code
